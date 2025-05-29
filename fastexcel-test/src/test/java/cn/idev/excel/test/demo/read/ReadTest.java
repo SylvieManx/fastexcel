@@ -146,6 +146,12 @@ public class ReadTest {
         // By default, read the first sheet
         EasyExcel.read(fileName, MultiNameData.class, new MultiNameDataListener()).sheet().doRead();
     }
+    @Test
+    public void MultiNameDataRead2() {
+        String fileName ="D:\\Download\\demo2.xlsx";
+        // By default, read the first sheet
+        EasyExcel.read(fileName, MultiNameData2.class, new MultiNameDataListener2()).sheet().doRead();
+    }
 
     /**
      * 读多个或者全部sheet,这里注意一个sheet不能读取多次，多次读取需要重新读取文件

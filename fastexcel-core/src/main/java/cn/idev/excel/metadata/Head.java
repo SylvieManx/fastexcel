@@ -22,58 +22,81 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 public class Head {
-    
+
     /**
      * Column index of head
      */
     private Integer columnIndex;
-    
+
     /**
      * It only has values when passed in {@link Sheet#setClazz(Class)} and {@link Table#setClazz(Class)}
      */
     private Field field;
-    
+
     /**
      * It only has values when passed in {@link Sheet#setClazz(Class)} and {@link Table#setClazz(Class)}
      */
     private String fieldName;
-    
+
     /**
      * Head name
      */
     private List<String> headNameList;
-    
+
     /**
      * Whether index is specified
      */
     private Boolean forceIndex;
-    
+
     /**
      * Whether to specify a name
      */
     private Boolean forceName;
-    
+
     /**
      * column with
      */
     private ColumnWidthProperty columnWidthProperty;
-    
+
     /**
      * Loop merge
      */
     private LoopMergeProperty loopMergeProperty;
-    
+
     /**
      * Head style
      */
     private StyleProperty headStyleProperty;
-    
+
     /**
      * Head font
      */
     private FontProperty headFontProperty;
-    
+    private String[] aliases;
     public Head(Integer columnIndex, Field field, String fieldName, List<String> headNameList, Boolean forceIndex,
+                Boolean forceName) {
+        this(columnIndex, field, fieldName, headNameList, new String[]{}, forceIndex, forceName);
+    }
+    public Head(Integer columnIndex, Field field, String fieldName, List<String> headNameList, String[] aliases, Boolean forceIndex,
+                Boolean forceName) {
+        this.columnIndex = columnIndex;
+        this.field = field;
+        this.fieldName = fieldName;
+        this.aliases = aliases;
+        if (headNameList == null) {
+            this.headNameList = new ArrayList<>();
+        } else {
+            this.headNameList = headNameList;
+            for (String headName : headNameList) {
+                if (headName == null) {
+                    throw new ExcelGenerateException("head name can not be null.");
+                }
+            }
+        }
+        this.forceIndex = forceIndex;
+        this.forceName = forceName || aliases.length > 0;
+    }
+    /*public Head(Integer columnIndex, Field field, String fieldName, List<String> headNameList, Boolean forceIndex,
             Boolean forceName) {
         this.columnIndex = columnIndex;
         this.field = field;
@@ -90,5 +113,5 @@ public class Head {
         }
         this.forceIndex = forceIndex;
         this.forceName = forceName;
-    }
+    }*/
 }

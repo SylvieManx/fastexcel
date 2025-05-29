@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface ExcelProperty {
-    
+
     /**
      * The name of the sheet header.
      *
@@ -29,7 +29,7 @@ public @interface ExcelProperty {
      * @return The name of the sheet header
      */
     String[] value() default {""};
-    
+    String[] aliases() default {""};
     /**
      * Index of column
      * <p>
@@ -40,7 +40,7 @@ public @interface ExcelProperty {
      * @return Index of column
      */
     int index() default -1;
-    
+
     /**
      * Defines the sort order for an column.
      * <p>
@@ -49,14 +49,14 @@ public @interface ExcelProperty {
      * @return Order of column
      */
     int order() default Integer.MAX_VALUE;
-    
+
     /**
      * Force the current field to use this converter.
      *
      * @return Converter
      */
     Class<? extends Converter<?>> converter() default AutoConverter.class;
-    
+
     /**
      * default @see cn.idev.excel.util.TypeUtil if default is not meet you can set format
      *

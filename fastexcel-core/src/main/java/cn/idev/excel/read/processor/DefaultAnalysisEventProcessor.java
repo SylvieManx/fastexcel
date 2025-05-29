@@ -19,6 +19,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -170,6 +171,8 @@ public class DefaultAnalysisEventProcessor implements AnalysisEventProcessor {
                 if (analysisContext.currentReadHolder().globalConfiguration().getAutoTrim()) {
                     headString = headString.trim();
                 }
+
+
                 //官方流程
                 if (headName.equals(headString)) {
                     headData.setColumnIndex(stringKey);
@@ -177,8 +180,8 @@ public class DefaultAnalysisEventProcessor implements AnalysisEventProcessor {
                     break;
                 }
                 // 多字段标识扩展流程
-                else if (headName.contains(",")){
-                    for (String s : headName.split(",")) {
+                else if (headName.contains("@@")){
+                    for (String s : headName.split("@@")) {
                         if (s.equals(headString)){
                             headData.setColumnIndex(stringKey);
                             tmpHeadMap.put(stringKey, headData);
